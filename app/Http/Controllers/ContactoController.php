@@ -5,9 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Contacto\CrearRequest;
 use App\Http\Resources\ContactoResource;
 use App\Models\Contacto;
-use App\Models\Telefono;
-use App\Models\Direccion;
-
 
 use App\Http\Requests\Contacto\ListarContactosRequest;
 

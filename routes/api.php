@@ -19,7 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 //listar
-Route::get('/contacto/listar', [ContactoController::class, 'listarContactos']);
+Route::post('/contacto/listar', [ContactoController::class, 'listarContactos']);
 
 //crear
 Route::post('/contacto/crear', [ContactoController::class, 'crear']);
