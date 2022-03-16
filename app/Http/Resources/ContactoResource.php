@@ -3,6 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\TelefonoResource;
+use App\Http\Resources\DireccionResource;
 
 class ContactoResource extends JsonResource
 {
@@ -18,10 +20,8 @@ class ContactoResource extends JsonResource
             'id' => $this->id,
             'nombre' => $this->nombre,
             'apellidos' => $this->apellidos,
-            'telefonos' => $this->telefonos,
-            'direcciones' => $this->direcciones,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'telefonos' =>  TelefonoResource::collection($this->telefonos),
+            'direcciones' => DireccionResource::collection($this->direcciones),
         ];
     }
 }

@@ -25,7 +25,9 @@ class CrearRequest extends BaseFormRequest
     {
         return [
             'nombre'=>'required|string|max:30',
-            'apellido'=>'required|string|max:40'
+            'apellidos'=>'required|string|max:40',
+            'telefonos'=>'required|array',
+            'direcciones'=>'required|array'
         ];
     }
 }
