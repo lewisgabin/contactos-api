@@ -15,25 +15,14 @@ class ContactoController extends Controller
 {
     public function listarContactos(ListarContactosRequest $request)
     {
-        return ContactoResource::collection(Contacto::all());
+
+        return ContactoResource::collection(Contacto::buscar($request->valor));
     }
 
     public function crear(CrearRequest $request)
     {
-        $contacto = Contacto::create($request->only(['nombre', 'apellidos']));
-
-        //agregando telefonos
-        foreach ($request->telefonos as $valor) {
-            $telefono = new Telefono();
-            $telefono->telefono = $valor;
-            $contacto->telefonos()->save($telefono);
-        }
-        // agregando direcciones
-        foreach ($request->direcciones as $valor) {
-            $direccion = new Direccion();
-            $direccion->direccion = $valor;
-            $contacto->direcciones()->save($direccion);
-        }
+        $contacto = new Contacto();
+        $contacto = $contacto->crearContactos($request);
         return new ContactoResource($contacto);
     }
 }

@@ -26,4 +26,37 @@ class Contacto extends Model
     {
         return $this->hasMany('App\Models\Direccion');
     }
+
+    //listar contactos
+    public static function buscar($busquedad)
+    {
+        if ($busquedad) {
+            return Contacto::where('nombre', 'like', "%$busquedad%")
+                ->orWhere('apellidos', 'like', "%$busquedad%")
+                ->orwhereRelation('telefonos', 'telefono', 'like', "%$busquedad%")
+                ->get();
+        }
+        return Contacto::all();
+    }
+
+    //crear contactos
+
+    public function crearContactos($request)
+    {
+        $contacto = Contacto::create($request->only(['nombre', 'apellidos']));
+        //agregando telefonos
+        foreach ($request->telefonos as $valor) {
+            $telefono = new Telefono();
+            $telefono->telefono = $valor;
+            $contacto->telefonos()->save($telefono);
+        }
+        // agregando direcciones
+        foreach ($request->direcciones as $valor) {
+            $direccion = new Direccion();
+            $direccion->direccion = $valor;
+            $contacto->direcciones()->save($direccion);
+        }
+
+        return $contacto;
+    }
 }
